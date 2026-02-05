@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="pl"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ważne pytanie ❤️</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #ffeef8;
+            text-align: center;
+            overflow: hidden;
+            padding: 20px;
+            transition: background 0.5s ease;
+        }
+
+        /* Styl dla tła z gifem, który pojawi się po kliknięciu TAK */
+        .celebrate {
+            background-image: url('misio.gif');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+            background-color: rgba(255, 238, 248, 0.4);
+        }
+
+        h1 { 
+            color: #d63384; 
+            font-size: 26px;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            width: 100%;
+            z-index: 10;
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 18px;
+            z-index: 10;
+            max-width: 95vw;
+            word-wrap: break-word;
+            box-shadow: 0 4px 15px rgba(214, 51, 132, 0.3);
+            font-weight: bold;
+        }
+
+        #noBtn {
+            background-color: #8a8a8a;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .heart-fall {
+            position: fixed;
+            top: -10px;
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            z-index: 5;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) translateX(20px) rotate(360deg);
+            }
+        }
+    </style>
+<meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified"><meta property="og:url" content="https://tan-bobbye-17.tiiny.site/" data-id="th-modified"><meta property="og:type" content="website" data-id="th-modified"><script defer="" data-domain="tan-bobbye-17.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script><script type="text/javascript" src="https://tiiny.host/ad-script.js"></script></head>
+<body>
+
+    <h1 id="question">Zostaniesz moją Walentynką? ❤️✨</h1>
+    
+    <div class="buttons">
+        <button id="yesBtn">TAK! 🥰</button>
+        <button id="noBtn">Nie 🥺</button>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const question = document.getElementById('question');
+
+        let currentFontSize = 18;
+        let clickCount = 0;
+        let heartInterval = setInterval(createHeart, 300); // Startowy deszcz serc
+
+        const phrases = [
+            "Aha 🤨",
+            "A jeśli bardzo poproszę? ✨",
+            "Pomyśl raz jeszcze...",
+            "Dajesz mi kosza?",
+            "Błagam!",
+            "Myślałem że mnie lubisz.. 💔",
+            "Kupię Ci nowe kolorowanki! 🖍️",
+            "Plissss 🙏",
+            "Będzie mi smutno 😢",
+            "Pojedziemy na Jedzonko 🥰☕",
+            "Nie :( 🧸"
+        ];
+
+        noBtn.addEventListener('click', () => {
+            clickCount++;
+            
+            currentFontSize += 25; 
+            yesBtn.style.fontSize = currentFontSize + 'px';
+            
+            let paddingVertical = 15 + (clickCount * 5);
+            let paddingHorizontal = 30 + (clickCount * 10);
+            yesBtn.style.padding = `${paddingVertical}px ${paddingHorizontal}px`;
+
+            if (clickCount > 8) {
+                noBtn.innerText = "Nie :( 💔";
+            } else {
+                const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+                noBtn.innerText = randomPhrase;
+            }
+
+            if (currentFontSize > 100) {
+                question.style.transform = "translateY(-60px)";
+                question.style.fontSize = "22px";
+            }
+        });
+
+        yesBtn.addEventListener('click', () => {
+            question.innerHTML = "Jeeej superancko!!! Wiedziałem! ❤️🥰<br>";
+            document.querySelector('.buttons').style.display = 'none';
+            
+            // AKCJA PO KLIKNIĘCIU TAK:
+            document.body.classList.add('celebrate'); // Dodaje gifa w tle
+            
+            clearInterval(heartInterval); // Czyścimy stary interwał
+            heartInterval = setInterval(createHeart, 100); // Przyspieszamy serca dla efektu wow!
+        });
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-fall');
+            const hearts = ['❤️', '💖', '💗', '💕', '💘'];
+            heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+            heart.style.opacity = Math.random();
+            heart.style.fontSize = Math.random() * 20 + 15 + "px";
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+    </script>
+
+</body></html>
