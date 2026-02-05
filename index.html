@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="pl"><head>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ważne pytanie ❤️</title>
@@ -21,7 +23,8 @@
         /* Styl dla tła z gifem, który pojawi się po kliknięciu TAK */
         .celebrate {
             background-image: url('misio.gif');
-            background-size: cover;
+            background-size: contain;
+            background-repeat: no-repeat;
             background-position: center;
             background-blend-mode: overlay;
             background-color: rgba(255, 238, 248, 0.4);
@@ -33,6 +36,18 @@
             margin-bottom: 30px;
             transition: all 0.3s;
             z-index: 10;
+        }
+
+        /* Animacja jeżdżenia po ekranie */
+        .moving-text {
+            font-size: 40px !important;
+            animation: bounce 2s infinite ease-in-out;
+            text-shadow: 2px 2px 10px rgba(214, 51, 132, 0.4);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.1); }
         }
 
         .buttons {
@@ -87,10 +102,10 @@
             }
         }
     </style>
-<meta property="og:image" content="https://tiiny.host/assets/logo-purple-bg.png" data-id="th-modified"><meta property="og:url" content="https://tan-bobbye-17.tiiny.site/" data-id="th-modified"><meta property="og:type" content="website" data-id="th-modified"><script defer="" data-domain="tan-bobbye-17.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script><script type="text/javascript" src="https://tiiny.host/ad-script.js"></script></head>
+</head>
 <body>
 
-    <h1 id="question">Zostaniesz moją Walentynką? ❤️✨</h1>
+    <h1 id="question">Czy zostaniesz Moją Walentynką? ❤️✨</h1>
     
     <div class="buttons">
         <button id="yesBtn">TAK! 🥰</button>
@@ -104,7 +119,7 @@
 
         let currentFontSize = 18;
         let clickCount = 0;
-        let heartInterval = setInterval(createHeart, 300); // Startowy deszcz serc
+        let heartInterval = setInterval(createHeart, 300);
 
         const phrases = [
             "Aha 🤨",
@@ -122,7 +137,6 @@
 
         noBtn.addEventListener('click', () => {
             clickCount++;
-            
             currentFontSize += 25; 
             yesBtn.style.fontSize = currentFontSize + 'px';
             
@@ -144,14 +158,14 @@
         });
 
         yesBtn.addEventListener('click', () => {
-            question.innerHTML = "Jeeej superancko!!! Wiedziałem! ❤️🥰<br>";
+            question.innerHTML = "Jeeej ale superancko! ❤️🥰";
+            question.classList.add('moving-text'); // Aktywacja animacji i większej czcionki
             document.querySelector('.buttons').style.display = 'none';
             
-            // AKCJA PO KLIKNIĘCIU TAK:
-            document.body.classList.add('celebrate'); // Dodaje gifa w tle
+            document.body.classList.add('celebrate');
             
-            clearInterval(heartInterval); // Czyścimy stary interwał
-            heartInterval = setInterval(createHeart, 100); // Przyspieszamy serca dla efektu wow!
+            clearInterval(heartInterval);
+            heartInterval = setInterval(createHeart, 100);
         });
 
         function createHeart() {
@@ -167,5 +181,5 @@
             setTimeout(() => { heart.remove(); }, 5000);
         }
     </script>
-
-</body></html>
+</body>
+</html>
